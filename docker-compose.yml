@@ -1,0 +1,25 @@
+version: "2"
+
+services:
+  shopify-ss-gtm:
+    container_name: "shopify-ss-gtm"
+    build: .
+    restart: always
+    env_file: .env
+    volumes:
+      - gtm-data:/app/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=shopify-ss-gtm"
+      - "traefik.frontend.rule=Host:ss.velogrej.dk"
+      - "traefik.docker.network=reverseproxy_default"
+    networks:
+      - proxy
+
+volumes:
+  gtm-data:
+
+networks:
+  proxy:
+    external:
+      name: reverseproxy_default

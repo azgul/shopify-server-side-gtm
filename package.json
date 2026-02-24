@@ -1,0 +1,17 @@
+{
+  "name": "shopify-server-side-gtm",
+  "version": "1.0.0",
+  "description": "Server-side Shopify conversion tracking for Google Ads and GA4",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.7.0",
+    "express": "^4.21.0",
+    "google-ads-api": "^17.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
