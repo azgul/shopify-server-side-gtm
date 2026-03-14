@@ -12,6 +12,7 @@ services:
       - "traefik.enable=true"
       - "traefik.backend=shopify-ss-gtm"
       - "traefik.frontend.rule=Host:ss.velogrej.dk"
+      - "traefik.port=3000"
       - "traefik.docker.network=reverseproxy_default"
     networks:
       - proxy

@@ -64,6 +64,7 @@ async function uploadConversion(event, { validateOnly = false } = {}) {
 
   try {
     const result = await customer.conversionUploads.uploadClickConversions({
+      customer_id: process.env.GOOGLE_ADS_CUSTOMER_ID,
       conversions: [conversion],
       partial_failure: true,
       validate_only: validateOnly,

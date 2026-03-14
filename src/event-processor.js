@@ -9,7 +9,7 @@ const TOPIC_MAP = {
   'orders/paid': 'purchase',
 };
 
-function extractGclid(landingSite) {
+function extractGclidFromUrl(landingSite) {
   if (!landingSite) return null;
   try {
     const url = new URL(landingSite, 'https://placeholder.com');
@@ -17,6 +17,12 @@ function extractGclid(landingSite) {
   } catch {
     return null;
   }
+}
+
+function extractGclidFromNoteAttributes(noteAttributes) {
+  if (!Array.isArray(noteAttributes)) return null;
+  const entry = noteAttributes.find((attr) => attr.name === 'gclid');
+  return entry?.value || null;
 }
 
 function normalizeItems(lineItems) {
@@ -37,7 +43,9 @@ function process(topic, payload) {
     return null;
   }
 
-  const gclid = extractGclid(payload.landing_site);
+  const gclid =
+    extractGclidFromNoteAttributes(payload.note_attributes) ||
+    extractGclidFromUrl(payload.landing_site);
 
   // Store gclid under all available tokens so order lookups succeed
   if (gclid) {
@@ -98,4 +106,4 @@ function process(topic, payload) {
   return event;
 }
 
-module.exports = { process, extractGclid };
+module.exports = { process, extractGclidFromUrl, extractGclidFromNoteAttributes };
